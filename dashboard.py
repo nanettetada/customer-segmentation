@@ -30,21 +30,23 @@ INFORMAL_RETAILERS = ["Mbare Musika"]
 
 MOBILE_MONEY_OPTIONS = ["EcoCash", "OneMoney", "InnBucks", "Cash"]
 
-# ---- Fintech palette -------------------------------------------------------
-BRAND = "#7C3AED"      # violet
-BRAND2 = "#A855F7"     # lighter purple, for the hero gradient
-INK = "#16161D"
-MUTED = "#5B6172"
-BODY = "#5B6172"
+# ---- Editorial palette -----------------------------------------------------
+BRAND = "#6B4A8A"      # editorial muted violet
+BRAND2 = "#7E5BA0"     # accent violet
+INK = "#1A1A17"
+MUTED = "#5B564B"
+BODY = "#5B564B"
 ACCENT = BRAND
-GOOD = "#16B364"
-WARN = "#FB8C00"
-BLUE = "#4C6FFF"
-CORAL = "#FF5A5F"
-GREY = "#9AA0AE"
-SOFT = "#F5F6FA"
-LINE = "#EEF0F4"
-FONT = "Manrope"
+GOOD = "#16794C"
+WARN = "#B4690E"
+BLUE = "#3A5A8A"
+CORAL = "#B3361E"
+GREY = "#9A9488"
+SOFT = "#F3F1EA"
+LINE = "#E7E3DA"
+PAPER = "#FBFAF7"
+FONT = "Inter"
+SERIF = "Fraunces"
 PLOT_TEMPLATE = "plotly_white"
 PAY_COLORS = {"EcoCash": GOOD, "OneMoney": BLUE, "InnBucks": WARN, "Cash": GREY}
 CHANNEL_COLORS = {"Formal supermarket": BRAND, "Informal market": WARN}
@@ -77,7 +79,7 @@ def derive_payment_method(customer_id: int, monetary: float) -> str:
 
 st.set_page_config(
     page_title="Retail customer personas",
-    page_icon="🛒",
+    page_icon="•",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
@@ -85,50 +87,72 @@ st.set_page_config(
 st.markdown(
     f"""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
-    html, body, [class*="css"], .stMarkdown, button, input, textarea {{
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap');
+    html, body, [class*="css"], .stMarkdown, p, span, div, label, input, button, textarea {{
         font-family: '{FONT}', system-ui, sans-serif;
     }}
-    #MainMenu, header, footer {{ visibility: hidden; }}
-    .block-container {{ padding-top: 1.6rem; padding-bottom: 3rem; max-width: 1180px; }}
+    .stApp {{ background: {PAPER}; }}
+    #MainMenu, footer, header[data-testid="stHeader"] {{ display: none; }}
+    .block-container {{ padding-top: 2rem; padding-bottom: 3rem; max-width: 1180px; }}
 
-    .hero {{ background: linear-gradient(135deg, {BRAND} 0%, {BRAND2} 100%);
-        border-radius: 24px; padding: 26px 30px 22px 30px; color:#fff;
-        box-shadow: 0 18px 40px rgba(124,58,237,.26); }}
-    .hero .brand {{ font-size:14px; font-weight:700; opacity:.92; display:flex;
-        align-items:center; gap:8px; }}
-    .hero .dot {{ width:9px; height:9px; border-radius:50%; background:#fff; display:inline-block; }}
-    .hero .label {{ font-size:14px; opacity:.9; margin-top:18px; font-weight:600; }}
-    .hero .value {{ font-size:46px; font-weight:800; line-height:1.05; margin-top:2px; letter-spacing:-1px; }}
-    .hero .sub {{ font-size:15px; opacity:.95; margin-top:6px; max-width:660px; }}
+    .hero {{ background: transparent; padding: 0 0 18px 0; color:{INK};
+             border-bottom: 1px solid {LINE}; margin-bottom: 6px; }}
+    .hero .brand {{ font-size:12px; font-weight:600; color:{BRAND};
+        letter-spacing:.4px; text-transform:uppercase;
+        display:flex; align-items:center; gap:8px; }}
+    .hero .dot {{ width:6px; height:6px; border-radius:50%; background:{BRAND}; display:inline-block; }}
+    .hero .label {{ font-size:13px; color:{BODY}; margin-top:14px; font-weight:500;
+        letter-spacing:.2px; text-transform:uppercase; }}
+    .hero .value {{ font-family:'{SERIF}', serif; font-size:46px; font-weight:500;
+        line-height:1.1; margin-top:4px; letter-spacing:-1px; color:{INK}; }}
+    .hero .sub {{ font-size:15px; color:{BODY}; margin-top:8px; max-width:680px;
+        line-height:1.55; }}
     .chips {{ display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }}
-    .chip {{ background: rgba(255,255,255,.18); border-radius:12px; padding:9px 14px; font-size:13px; }}
-    .chip b {{ font-size:17px; font-weight:800; display:block; }}
+    .chip {{ background:#fff; border:1px solid {LINE}; border-radius:10px;
+        padding:9px 13px; font-size:12.5px; color:{BODY}; }}
+    .chip b {{ font-family:'{SERIF}', serif; font-size:17px; font-weight:500;
+        color:{INK}; display:block; letter-spacing:-.2px; }}
 
-    .callout {{ border-radius:16px; padding:15px 18px; margin:6px 0 20px 0;
-        font-size:15px; line-height:1.6; color:#3a3f4d; }}
-    .sec {{ margin: 26px 0 4px 0; }}
-    .sec h3 {{ font-size:20px; font-weight:800; color:{INK}; margin:0; }}
-    .sec p {{ font-size:14px; color:{BODY}; margin:3px 0 0 0; }}
+    .callout {{ border-radius:14px; padding:14px 18px; margin:8px 0 20px 0;
+        font-size:14.5px; line-height:1.6; color:{INK}; border:1px solid {LINE}; }}
+    .sec {{ margin: 28px 0 6px 0; }}
+    .sec h3 {{ font-family:'{SERIF}', serif; font-size:23px; font-weight:500;
+        color:{INK}; margin:0; letter-spacing:-.2px; }}
+    .sec p {{ font-size:14.5px; color:{BODY}; margin:4px 0 0 0; line-height:1.5; }}
 
-    .persona-card {{ background:#fff; border-radius:16px; padding:16px 20px; margin:8px 0;
-        border:1px solid #F0F1F5; border-left:5px solid var(--persona-color, {BRAND});
-        box-shadow:0 1px 3px rgba(20,22,30,.05), 0 8px 22px rgba(20,22,30,.04); }}
-    .persona-card h4 {{ margin:0 0 6px 0; font-size:17px; font-weight:800; color:{INK}; }}
+    .persona-card {{ background:#fff; border-radius:14px; padding:16px 20px; margin:8px 0;
+        border:1px solid {LINE}; border-left:3px solid var(--persona-color, {BRAND});
+        box-shadow:0 1px 2px rgba(26,26,23,.03); }}
+    .persona-card h4 {{ font-family:'{SERIF}', serif; margin:0 0 6px 0;
+        font-size:18px; font-weight:500; color:{INK}; letter-spacing:-.2px; }}
     .persona-card .meta {{ font-size:13px; color:{BODY}; margin-bottom:10px; }}
-    .persona-card .action {{ font-size:14px; color:#3a3f4d; }}
+    .persona-card .action {{ font-size:14px; color:{INK}; line-height:1.55; }}
     .persona-card .why {{ font-size:13px; color:{GREY}; margin-top:6px; font-style:italic; }}
 
-    [data-testid="stMetric"] {{ background:#fff; border:1px solid #F0F1F5; border-radius:16px;
-        padding:14px 18px; box-shadow:0 1px 3px rgba(20,22,30,.05), 0 8px 22px rgba(20,22,30,.04); }}
-    [data-testid="stMetricValue"] {{ font-weight:800; color:{INK}; }}
-    [data-testid="stMetricLabel"] p {{ font-weight:600; color:{BODY}; }}
+    [data-testid="stMetric"] {{ background:#fff; border:1px solid {LINE}; border-radius:14px;
+        padding:14px 18px; box-shadow:0 1px 2px rgba(26,26,23,.03); }}
+    [data-testid="stMetricValue"] {{ font-family:'{SERIF}', serif; font-weight:500; color:{INK}; }}
+    [data-testid="stMetricLabel"] p {{ font-weight:500; color:{BODY}; }}
 
-    .stTabs [data-baseweb="tab-list"] {{ gap:6px; background:{SOFT}; padding:6px; border-radius:14px; }}
-    .stTabs [data-baseweb="tab"] {{ height:auto; padding:9px 20px; border-radius:10px;
-        font-weight:600; color:{BODY}; background:transparent; }}
-    .stTabs [aria-selected="true"] {{ background:#fff; color:{INK}; box-shadow:0 1px 3px rgba(0,0,0,.10); }}
-    .stTabs [data-baseweb="tab-highlight"], .stTabs [data-baseweb="tab-border"] {{ display:none; }}
+    .stTabs [data-baseweb="tab-list"] {{ gap:0; background:transparent; padding:0;
+        border-bottom:1px solid {LINE}; border-radius:0; }}
+    .stTabs [data-baseweb="tab"] {{ height:auto; padding:10px 16px; border-radius:0;
+        font-weight:500; font-size:15px; color:{BODY}; background:transparent; }}
+    .stTabs [aria-selected="true"] {{ background:transparent; color:{BRAND}; box-shadow:none; }}
+    .stTabs [data-baseweb="tab-highlight"] {{ background:{BRAND}; height:2px; }}
+    .stTabs [data-baseweb="tab-border"] {{ display:none; }}
+
+    .stButton > button {{ font-size:14px; font-weight:500; border-radius:10px;
+        border:1px solid {LINE}; background:#fff; color:{INK}; padding:8px 18px; }}
+    .stButton > button:hover {{ border-color:{BRAND}; color:{BRAND}; }}
+
+    @media (max-width: 640px) {{
+        .block-container {{ padding-left:1rem; padding-right:1rem; padding-top:1.2rem; }}
+        .hero .value {{ font-size:34px; }}
+        .hero .sub {{ font-size:14px; }}
+        .sec h3 {{ font-size:19px; }}
+        .stTabs [data-baseweb="tab"] {{ padding:8px 12px; font-size:14px; }}
+    }}
     </style>
     """,
     unsafe_allow_html=True,
@@ -136,10 +160,10 @@ st.markdown(
 
 
 def note(text: str, tone: str = "neutral") -> None:
-    bg = {"brand": "#F3EEFD", "good": "#E9FBF3", "warn": "#FFF6E9", "neutral": SOFT}[tone]
+    bg = {"brand": "#EFE7F0", "good": "#E8EFE8", "warn": "#F3EBD8", "neutral": SOFT}[tone]
     bar = {"brand": BRAND, "good": GOOD, "warn": WARN, "neutral": GREY}[tone]
     st.markdown(
-        f'<div class="callout" style="background:{bg};border-left:4px solid {bar};">{text}</div>',
+        f'<div class="callout" style="background:{bg};border-left:3px solid {bar};">{text}</div>',
         unsafe_allow_html=True,
     )
 

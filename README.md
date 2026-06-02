@@ -3,6 +3,9 @@
 A K-Means segmentation of a Zimbabwean retailer's customer base — five named personas, the channels and mobile-money mix each one prefers, and a small marketing recommendation engine on top.
 
 <p>
+  <a href="https://nanettetada-zim-retail-personas-dashboard-2rloh3.streamlit.app">
+    <img alt="Live demo" src="https://img.shields.io/badge/Open_dashboard-Live_demo-6B4A8A?style=flat-square&logo=streamlit&logoColor=white" />
+  </a>
   <img alt="Python"   src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white" />
   <img alt="scikit-learn" src="https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikit-learn&logoColor=white" />
   <img alt="K-Means"  src="https://img.shields.io/badge/K--Means-6B4A8A?style=flat-square" />
